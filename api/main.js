@@ -15,7 +15,7 @@ const cors = require('cors')
 
 app.use(cors({
     origin: '*'
-}));
+}));0
 app.use(morgan('tiny'))
 app.use(bodyParse.json())
 
@@ -153,7 +153,7 @@ app.post('/deleteEntierro', async(req,res)=>{
         res.json({ "mensanje": "la cedula ya existe"})
     }
 })
-
+ 
 
 app.post('/updateEntierro', async(req,res)=>{
     if(!req.body.body){
@@ -161,9 +161,6 @@ app.post('/updateEntierro', async(req,res)=>{
         return
     }
     const {id, cedula, pais, sede, fechaFallecimiento, tipoDocumento, fechaNacimiento, apellidoMuerto, apellidoCliente, nombreCliente, nombreMuerto, nombreAdmin, cedulaMuerto, cedulaAdmin} = req.body.body
-    console.log(req.body.body)
-    console.log(id, cedula, pais, tipoDocumento, sede, apellidoMuerto, apellidoCliente, nombreCliente, nombreMuerto, nombreAdmin, cedulaMuerto, cedulaAdmin, fechaFallecimiento, fechaNacimiento)
-    //|| !fechaNacimiento || !apellidoMuerto || !apellidoCliente 
     if(!fechaNacimiento || !apellidoMuerto || !apellidoCliente ||   !id || !pais || !cedula || !sede || !fechaFallecimiento || !tipoDocumento || !nombreCliente || !nombreMuerto || !nombreAdmin || !cedulaMuerto || !cedulaAdmin){
         res.json({"mensanje": "no se puedo actualizar"})
         return
@@ -171,10 +168,10 @@ app.post('/updateEntierro', async(req,res)=>{
     let continiu = await existId(cedula, 'cedula', 'persona')
     let continiu1 = await existId(cedula, 'cedula', 'persona')
     if(continiu){
-        let data = await query(`UPDATE muertos SET pais='${pais}',sede='${sede}',fechaFallecimiento='${fechaFallecimiento}' WHERE cedula idMuerto = ${cedulaMuerto}`)
-        let data2 = await query(`UPDATE persona SET tipoDocumento='${tipoDocumento}',nombre='${nombre}',apellido='${apellido}',fechaNacimiento='${fechaNacimiento}' WHERE cedula=  ${cedula}`)
+        let data = await query(`UPDATE muertos SET pais='${pais}',sede='${sede}',fechaFallecimiento='${fechaFallecimiento}' WHERE idMuerto = ${cedulaMuerto}`)
+        let data2 = await query(`UPDATE persona SET tipoDocumento='${tipoDocumento}',nombre='${nombreCliente}',apellido='${apellidoCliente}',fechaNacimiento='${fechaNacimiento}' WHERE cedula=  ${cedula}`)
         if(data.protocol41 && data2.protocol41){
-            res.json({ "mesanje": "inserted persona"})
+            res.json({ "mesanje": "update detalle"})
         }
     }else{
         res.json({ "mensanje": "la cedula ya existe"})
@@ -233,7 +230,6 @@ app.post('/addEntierro', async(req,res)=>{
     } else {
         res.json({"mensaje": "algunas de las cedulas ingresadas no existe"})
     }
-
 })
 
 app.post('/log/:id/:password', async (req, res)=>{

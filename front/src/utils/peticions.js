@@ -1,7 +1,7 @@
 export default class peticion {
     constructor () {
         // this.host = 'http://localhost:3001/'
-        this.host = 'http://apifuneraria.herokuapp.com' 
+        this.host = 'http://apifunerariaa.herokuapp.com' 
     }
     async get(rute) {
         let response = await fetch(this.host+rute,{

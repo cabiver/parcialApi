@@ -2,6 +2,15 @@ let mysql = require('mysql');
 require('dotenv').config()
 
 
+// let pool = mysql.createPool({
+//     host     : 'localhost',
+//     user     : 'root',
+//     password : '',
+//     database : 'funeraria',
+//     ssl:true
+
+// });
+
 // console.log(process.env.USERDATAbASE)
 // console.log(process.env.HOST)
 // console.log(process.env.PASSWORD)
@@ -15,15 +24,6 @@ let pool = mysql.createPool({
       database : process.env.DATABASE,
       ssl:true
 });
-
-// let pool = mysql.createPool({
-//     host     : 'localhost',
-//     user     : 'root',
-//     password : '',
-//     database : 'funeraria',
-//     ssl:true
-
-// });
 const query = function( sql, values ) {
   return new Promise(( resolve, reject ) => {
     pool.getConnection(function(err, connection) {
